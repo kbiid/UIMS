@@ -11,7 +11,23 @@
 <body>
 	<nav
 		class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-		<div class="navbar-brand col-sm-3 col-md-2 mr-0">Welcome!!</div>
+		<div class="navbar-brand col-sm-2 col-md-1">Welcome!!</div>
+		<div class="navbar-brand col-sm-2 col-md-1" id="navbarCollapse">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active"><a class="nav-link"
+					th:href="list">메인 </a></li>
+			</ul>
+		</div>
+		<div class="navbar-brand col-sm-3 col-md-1" id="navbarCollapse">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item"><a class="nav-link" th:href="typography">게시판</a></li>
+			</ul>
+		</div>
+		<div class="navbar-brand col-sm-3 col-md-1" id="navbarCollapse">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item"><a class="nav-link" th:href="widgets">정보수정</a></li>
+			</ul>
+		</div>
 		<ul class="navbar-nav px-3">
 			<li class="nav-item text-nowrap"><a class="nav-link"
 				th:href="logout">로그아웃</a></li>
@@ -66,6 +82,11 @@
 								th:value="*{ipAddress}">
 						</div>
 					</div>
+					<div class="form-group row">
+						<label class="col-md-3 col-form-label" for="label-date">가입일
+							: </label>
+						<div class="col-md-9" id="date" th:text="*{date}">가입일</div>
+					</div>
 				</form>
 			</div>
 			<div class="card-footer">
@@ -93,10 +114,11 @@
 		data["email"] = $("#email").val();
 		data["gender"] = $("#gender").val();
 		data["ip"] = $("#ip").val();
+		data["date"] = document.getElementById("date").textContent;
 
 		$.ajax({
 			contentType : 'application/json',
-			url : '/kkj/updateUser',
+			url : '/uims/updateUser',
 			type : 'POST',
 			dataType : 'html',
 			data : JSON.stringify(data),
@@ -105,7 +127,7 @@
 				alert("수정성공!");
 				$(location).attr(
 						'href',
-						'/kkj/detail?id='
+						'/uims/detail?id='
 								+ document.getElementById("id").textContent);
 			},
 			error : function(request, status, error) {

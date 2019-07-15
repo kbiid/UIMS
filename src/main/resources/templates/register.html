@@ -11,7 +11,23 @@
 <body class="app flex-row align-items-center">
 	<nav
 		class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-		<div class="navbar-brand col-sm-3 col-md-2 mr-0">Welcome!!</div>
+		<div class="navbar-brand col-sm-2 col-md-1">Welcome!!</div>
+		<div class="navbar-brand col-sm-2 col-md-1" id="navbarCollapse">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active"><a class="nav-link"
+					th:href="list">메인 </a></li>
+			</ul>
+		</div>
+		<div class="navbar-brand col-sm-3 col-md-1" id="navbarCollapse">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item"><a class="nav-link" th:href="typography">게시판</a></li>
+			</ul>
+		</div>
+		<div class="navbar-brand col-sm-3 col-md-1" id="navbarCollapse">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item"><a class="nav-link" th:href="widgets">정보수정</a></li>
+			</ul>
+		</div>
 		<ul class="navbar-nav px-3">
 			<li class="nav-item text-nowrap"><a class="nav-link"
 				th:href="logout">로그아웃</a></li>
@@ -74,7 +90,7 @@
 								<div class="col-6">
 									<button type="button" class="btn btn-lg btn-primary btn-block"
 										style="width: 100px; height: 40px; text-align: center; font-size: 20px; float: right;"
-										onclick="location.href='/kkj/list'">취소</button>
+										onclick="location.href='/uims/list'">취소</button>
 								</div>
 							</div>
 						</div>
@@ -100,14 +116,14 @@
 
 		$.ajax({
 			contentType : 'application/json',
-			url : '/kkj/addUser',
+			url : '/uims/addUser',
 			type : 'POST',
 			dataType : 'html',
 			data : JSON.stringify(data),
 			async : false,
 			success : function(res) {
 				alert("등록성공!");
-				$(location).attr('href', '/kkj/list');
+				$(location).attr('href', '/uims/list');
 			},
 			error : function(request, status, error) {
 				alert("code : " + request.status+"\n" + "message : " + request.responseText + "\n" + "error : " + error);

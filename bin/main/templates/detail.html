@@ -11,9 +11,26 @@
 <body>
 	<nav
 		class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-		<div class="navbar-brand col-sm-3 col-md-2 mr-0">Welcome!!</div>
+		<div class="navbar-brand col-sm-2 col-md-1">Welcome!!</div>
+		<div class="navbar-brand col-sm-2 col-md-1" id="navbarCollapse">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active"><a class="nav-link"
+					th:href="list">메인 </a></li>
+			</ul>
+		</div>
+		<div class="navbar-brand col-sm-3 col-md-1" id="navbarCollapse">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item"><a class="nav-link" th:href="typography">게시판</a></li>
+			</ul>
+		</div>
+		<div class="navbar-brand col-sm-3 col-md-1" id="navbarCollapse">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item"><a class="nav-link" th:href="widgets">정보수정</a></li>
+			</ul>
+		</div>
 		<ul class="navbar-nav px-3">
-			<li class="nav-item text-nowrap"><a class="nav-link" href="/kkj">로그아웃</a></li>
+			<li class="nav-item text-nowrap"><a class="nav-link"
+				th:href="logout">로그아웃</a></li>
 		</ul>
 	</nav>
 	<div class="col-md-6"
@@ -70,7 +87,7 @@
 					<i class="fa fa-ban"></i> 삭제
 				</button>
 				<button type="button" class="btn btn-sm btn-primary"
-					onclick="location.href='/kkj/list'">돌아가기</button>
+					onclick="location.href='/uims/list'">돌아가기</button>
 			</div>
 		</div>
 	</div>
@@ -89,13 +106,13 @@
 
 		$.ajax({
 			contentType : 'application/json',
-			url : "/kkj/delete",
+			url : "/uims/delete",
 			type : "POST",
 			dataType : 'html',
 			data : JSON.stringify(data),
 			success : function(res) {
 				alert("삭제성공!");
-				$(location).attr('href', '/kkj/list');
+				$(location).attr('href', '/uims/list');
 			},
 			error : function(request, status, error) {
 				alert("삭제실패");
