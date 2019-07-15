@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="utf-8">
+<link href="css/style.css" rel="stylesheet">
+<title>Register List</title>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body class="app flex-row align-items-center">
+	<nav
+		class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+		<div class="navbar-brand col-sm-3 col-md-2 mr-0">Welcome!!</div>
+		<ul class="navbar-nav px-3">
+			<li class="nav-item text-nowrap"><a class="nav-link"
+				th:href="logout">로그아웃</a></li>
+		</ul>
+	</nav>
+	<form class="container" id="registerForm" name="registerForm"
+		method="post">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-6">
+					<div class="card mx-4">
+						<div class="card-body p-4">
+							<h1>회원 추가</h1>
+							<p class="text-muted">정보를 입력해주세요.</p>
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text"> <i class="icon-user"></i>
+									</span>
+								</div>
+								<input id="inputFirstName" name="inputFirstName"
+									class="form-control" type="text" placeholder="이름">
+							</div>
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text"> <i class="icon-user"></i>
+									</span>
+								</div>
+								<input id="inputLastName" name="inputLastName"
+									class="form-control" type="text" placeholder="성">
+							</div>
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text">@</span>
+								</div>
+								<input id="inputEmail" name="inputEmail" class="form-control"
+									type="email" placeholder="Email">
+							</div>
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text"> <i class="icon-user"></i>
+									</span>
+								</div>
+								<input id="inputGender" name="inputGender" class="form-control"
+									type="text" placeholder="성별">
+							</div>
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text"> <i class="icon-user"></i>
+									</span>
+								</div>
+								<input id="inputIP" name="inputIP" class="form-control"
+									type="text" placeholder="아이피주소">
+							</div>
+							<div class="row">
+								<div class="col-6">
+									<button type="button" class="btn btn-lg btn-primary btn-block"
+										style="width: 100px; height: 40px; text-align: center; font-size: 20px;"
+										onclick="register();">추가</button>
+								</div>
+								<div class="col-6">
+									<button type="button" class="btn btn-lg btn-primary btn-block"
+										style="width: 100px; height: 40px; text-align: center; font-size: 20px; float: right;"
+										onclick="location.href='/kkj/list'">취소</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</body>
+<script type="text/javascript">
+	function register() {
+		if (!checkInput()) {
+			return false;
+		}
+
+		var data = {};
+
+		data["firstName"] = $("#inputFirstName").val();
+		data["lastName"] = $("#inputLastName").val();
+		data["email"] = $("#inputEmail").val();
+		data["gender"] = $("#inputGender").val();
+		data["ip"] = $("#inputIP").val();
+
+		$.ajax({
+			contentType : 'application/json',
+			url : '/kkj/addUser',
+			type : 'POST',
+			dataType : 'html',
+			data : JSON.stringify(data),
+			async : false,
+			success : function(res) {
+				alert("등록성공!");
+				$(location).attr('href', '/kkj/list');
+			},
+			error : function(request, status, error) {
+				alert("code : " + request.status+"\n" + "message : " + request.responseText + "\n" + "error : " + error);
+			}
+		});
+	}
+
+	function checkInput() {
+		if ($("#inputFirstName").val() == "") {
+			alert("이름을 입력하세요!")
+			return false;
+		} else if ($("#inputLastName").val() == "") {
+			alert("성을 입력하세요!")
+			return false;
+		} else if ($("#inputEmail").val() == "") {
+			alert("email 입력하세요!")
+			return false;
+		} else if ($("#inputGender").val() == "") {
+			alert("성별을 입력하세요!")
+			return false;
+		} else if ($("#inputIP").val() == "") {
+			alert("IP 주소를 입력하세요!")
+			return false;
+		} else if (!isEmail($("#inputEmail").val())) {
+			alert("이메일 형식을 올바르게 입력해주세요!");
+			return false;
+		}
+		return true;
+	}
+
+	function isEmail(email) {
+		var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+		return regex.test(email);
+	}
+</script>
+</html>
