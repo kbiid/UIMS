@@ -18,28 +18,38 @@ import kr.co.torpedo.uims.domain.Admin;
 @Controller
 public class LoginController {
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
-	private ConfigReader reader;
+//	private ConfigReader reader;
 	private Admin admin;
 
 	// 초기화를 위한 작업
 	@PostConstruct
 	public void init() {
 		logger.info("controller init");
-		reader = new ConfigReader();
-		admin = new Admin();
-		admin.setId(reader.getAdminId());
-		admin.setPasswd(reader.getAdminPwd());
+//		reader = new ConfigReader();
+//		admin = new Admin();
+//		admin.setId(reader.getAdminId());
+//		admin.setPasswd(reader.getAdminPwd());
 	}
 
 	@RequestMapping("/")
-	public String home() {
+	public String home(HttpServletRequest httpServletRequest) {
 		logger.info("home method");
+		checkSession(httpServletRequest);
 		return "login";
+	}
+
+	private void checkSession(HttpServletRequest httpServletRequest) {
+		HttpSession session = httpServletRequest.getSession();
+		if (session.getAttribute("Admin") != null) {
+			logger.info("remove session");
+			session.invalidate();
+		}
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String checkInput(HttpServletRequest httpServletRequest, Model model) throws NoSuchAlgorithmException {
 		logger.info("checkInput");
+		checkSession(httpServletRequest);
 		String id = httpServletRequest.getParameter("inputId");
 		String passwd = httpServletRequest.getParameter("passwd");
 		if (this.admin.checkAdminInfo(id, passwd)) {
@@ -56,11 +66,7 @@ public class LoginController {
 	@RequestMapping(value = "/logout")
 	public String logout(HttpServletRequest httpServletRequest, Model model) throws NoSuchAlgorithmException {
 		logger.info("logout");
-		HttpSession session = httpServletRequest.getSession();
-		if (session.getAttribute("Admin") != null) {
-			logger.info("remove session");
-			session.invalidate();
-		}
+		checkSession(httpServletRequest);
 		return "redirect:/";
 	}
 }

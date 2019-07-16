@@ -60,7 +60,7 @@ public class PageController {
 		return "widgets";
 	}
 
-	public boolean checkSession(HttpServletRequest httpServletRequest) {
+	private boolean checkSession(HttpServletRequest httpServletRequest) {
 		HttpSession session = httpServletRequest.getSession();
 		if (session.getAttribute("Admin") == null) {
 			return false;

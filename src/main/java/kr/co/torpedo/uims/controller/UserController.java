@@ -70,7 +70,7 @@ public class UserController {
 		return "redirect:/list";
 	}
 
-	public boolean checkSession(HttpServletRequest httpServletRequest) {
+	private boolean checkSession(HttpServletRequest httpServletRequest) {
 		HttpSession session = httpServletRequest.getSession();
 		if (session.getAttribute("Admin") == null) {
 			return false;
