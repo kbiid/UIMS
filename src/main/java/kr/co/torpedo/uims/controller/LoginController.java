@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,13 +19,13 @@ import kr.co.torpedo.uims.domain.Admin;
 @Controller
 public class LoginController {
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
+	@Autowired
 	private Admin admin;
 
 	// 초기화를 위한 작업
 	@PostConstruct
 	public void init() {
 		logger.info("controller init");
-		admin = new Admin();
 	}
 
 	@RequestMapping("/")
@@ -47,7 +48,7 @@ public class LoginController {
 		logger.info("checkInput");
 		checkSession(httpServletRequest);
 		String id = httpServletRequest.getParameter("inputId");
-		String passwd = httpServletRequest.getParameter("passwd");
+		String passwd = httpServletRequest.getParameter("inputPasswd");
 		if (this.admin.checkAdminInfo(id, passwd)) {
 			logger.info("login success");
 			logger.info("make session");

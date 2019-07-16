@@ -4,7 +4,9 @@ import java.security.NoSuchAlgorithmException;
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
+@Component
 public class Admin {
 	@Value("${admin.id}")
 	private String id;

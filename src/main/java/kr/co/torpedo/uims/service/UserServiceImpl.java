@@ -3,6 +3,10 @@ package kr.co.torpedo.uims.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import kr.co.torpedo.uims.domain.User;
@@ -22,7 +26,9 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<User> listCriteria(Criteria cri) {
-		return repository.find(cri.getPageStart(), cri.getPerPageNum());
+		Pageable pageable = PageRequest.of(cri.getPage(), cri.getPerPageNum(),Sort.Direction.DESC, "date");
+		Page<User> userList = repository.findAll(pageable);
+		return userList.getContent();
 	}
 
 	@Override

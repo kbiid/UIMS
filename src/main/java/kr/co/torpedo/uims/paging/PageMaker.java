@@ -35,19 +35,32 @@ public class PageMaker {
 	}
 
 	private void calcDate() {
-		endPage = (int) (Math.ceil(cri.getPage() / (double) displayPageNum) * displayPageNum);
-
+		calcEndPage();
 		startPage = (endPage - displayPageNum) + 1;
-
-		int tempEndPage = (int) (Math.ceil(totalCount / (double) cri.getPerPageNum()));
-
+		int tempEndPage = calcTempPage();
 		if (endPage > tempEndPage) {
 			endPage = tempEndPage;
 		}
-
 		prev = startPage == 1 ? false : true;
-
 		next = endPage * cri.getPerPageNum() >= totalCount ? false : true;
+	}
+
+	private int calcTempPage() {
+		int tempEndPage;
+		if ((totalCount % cri.getPerPageNum()) == 0) {
+			tempEndPage = (totalCount / cri.getPerPageNum());
+		} else {
+			tempEndPage = (totalCount / cri.getPerPageNum()) + 1;
+		}
+		return tempEndPage;
+	}
+
+	private void calcEndPage() {
+		if ((cri.getPage() % displayPageNum) == 0) {
+			endPage = (cri.getPage() / displayPageNum) * displayPageNum;
+		} else {
+			endPage = ((cri.getPage() / displayPageNum) + 1) * displayPageNum;
+		}
 	}
 
 	public int getDisplayPageNum() {

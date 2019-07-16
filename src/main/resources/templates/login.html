@@ -20,21 +20,21 @@
 										<span class="input-group-text"> <i class="icon-user"></i>
 										</span>
 									</div>
-									<input class="form-control" id="inputId" type="text" name="inputId"
-										placeholder="아이디">
+									<input class="form-control" id="inputId" type="text"
+										name="inputId" placeholder="아이디">
 								</div>
 								<div class="input-group mb-4">
 									<div class="input-group-prepend">
 										<span class="input-group-text"> <i class="icon-lock"></i>
 										</span>
 									</div>
-									<input class="form-control" id="passwd" type="password"
-										name="passwd" placeholder="비밀번호">
+									<input class="form-control" id="inputPasswd" type="password"
+										name="inputPasswd" placeholder="비밀번호">
 								</div>
 								<div class="row">
 									<div class="col-6">
 										<button class="btn btn-primary px-4" type="button"
-											onclick="checkInput(inputId.value,passwd.value)">로그인</button>
+											id="loginButton">로그인</button>
 									</div>
 								</div>
 							</form>
@@ -45,17 +45,20 @@
 		</div>
 	</div>
 </body>
-<script type="text/javascript">
-	function checkInput(id, passwd) {
-		if (id == "") {
-			alert("아이디를 입력하세요!")
-			return false;
-		} else if (passwd == "") {
-			alert("비밀번호를 입력하세요!")
-			return false;
-		} else {
-			document.getElementById("loginForm").submit();
-		}
-	}
+<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+	$(document).ready(function(){
+		$("#loginButton").click(function(){
+			if($("#inputId").val() == "") {
+				alert("아이디를 입력하세요!")
+				return false;
+			} else if ($("#inputPasswd").val() == "") {
+				alert("비밀번호를 입력하세요!")
+				return false;
+			} else {
+				$('#loginForm')[0].submit();
+			}
+		});
+	});
 </script>
 </html>
