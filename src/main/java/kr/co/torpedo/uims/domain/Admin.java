@@ -3,9 +3,12 @@ package kr.co.torpedo.uims.domain;
 import java.security.NoSuchAlgorithmException;
 
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.beans.factory.annotation.Value;
 
 public class Admin {
+	@Value("${admin.id}")
 	private String id;
+	@Value("${admin.passwd}")
 	private String passwd;
 
 	public String getId() {

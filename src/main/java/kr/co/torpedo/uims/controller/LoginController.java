@@ -18,17 +18,13 @@ import kr.co.torpedo.uims.domain.Admin;
 @Controller
 public class LoginController {
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
-//	private ConfigReader reader;
 	private Admin admin;
 
 	// 초기화를 위한 작업
 	@PostConstruct
 	public void init() {
 		logger.info("controller init");
-//		reader = new ConfigReader();
-//		admin = new Admin();
-//		admin.setId(reader.getAdminId());
-//		admin.setPasswd(reader.getAdminPwd());
+		admin = new Admin();
 	}
 
 	@RequestMapping("/")
