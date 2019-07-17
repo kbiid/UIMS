@@ -14,8 +14,8 @@
 		<div class="navbar-brand col-sm-2 col-md-1">Welcome!!</div>
 		<div class="navbar-brand col-sm-2 col-md-1" id="navbarCollapse">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active"><a class="nav-link"
-					th:href="list">메인 </a></li>
+				<li class="nav-item active"><a class="nav-link" th:href="list">메인
+				</a></li>
 			</ul>
 		</div>
 		<div class="navbar-brand col-sm-3 col-md-1" id="navbarCollapse">
@@ -83,41 +83,41 @@
 				<a th:href="@{/update(id=*{id})}" class="btn btn-sm btn-primary"><i
 					class="fa fa-dot-circle-o"></i> 수정</a>
 				<button class="btn btn-sm btn-danger" type="button"
-					onclick="checkDelete();">
+					id="deleteButton">
 					<i class="fa fa-ban"></i> 삭제
 				</button>
 				<button type="button" class="btn btn-sm btn-primary"
-					onclick="location.href='/uims/list'">돌아가기</button>
+					id="backMainButton">돌아가기</button>
 			</div>
+			<div id="errorText" style="color: red; font-size: 160%"></div>
 		</div>
 	</div>
 </body>
 <script>
-	function checkDelete() {
+	$("#deleteButton").click(function() {
 		var check = confirm("정말로 삭제하시겠습니까?");
 		if (check == true) {
-			deleteUser();
+			var data = {};
+			data["id"] = document.getElementById("id").textContent;
+
+			$.ajax({
+				contentType : 'application/json',
+				url : "/uims/delete",
+				type : "POST",
+				dataType : 'html',
+				data : JSON.stringify(data),
+				success : function(res) {
+					$(location).attr('href', '/uims/list');
+				},
+				error : function(request, status, error) {
+					$("#errorText").text("삭제실패!");
+				}
+			});
 		}
-	}
+	});
 
-	function deleteUser() {
-		var data = {};
-		data["id"] = document.getElementById("id").textContent;
-
-		$.ajax({
-			contentType : 'application/json',
-			url : "/uims/delete",
-			type : "POST",
-			dataType : 'html',
-			data : JSON.stringify(data),
-			success : function(res) {
-				alert("삭제성공!");
-				$(location).attr('href', '/uims/list');
-			},
-			error : function(request, status, error) {
-				alert("삭제실패");
-			}
-		});
-	}
+	$("#backMainButton").click(function() {
+		$(location).attr('href', '/uims/list');
+	});
 </script>
 </html>

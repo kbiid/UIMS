@@ -40,8 +40,8 @@
 		<div class="navbar-brand col-sm-2 col-md-1">Welcome!!</div>
 		<div class="navbar-brand col-sm-2 col-md-1" id="navbarCollapse">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active"><a class="nav-link"
-					th:href="list">메인 </a></li>
+				<li class="nav-item active"><a class="nav-link" th:href="list">메인
+				</a></li>
 			</ul>
 		</div>
 		<div class="navbar-brand col-sm-3 col-md-1" id="navbarCollapse">
@@ -117,12 +117,16 @@
 				</ul>
 			</nav>
 			<div align="right">
-				<input class="btn btn-lg btn-primary btn-block"
-					style="left: 700px; width: 100px; height: 40px; text-align: center; font-size: 20px;"
-					id="addUser" type="button" value="추가"
-					onclick="location.href='/uims/register'">
+				<button class="btn btn-lg btn-primary btn-block" type="button"
+					id="registerLinkButton"
+					style="left: 700px; width: 100px; height: 40px; text-align: center; font-size: 20px;">추가</button>
 			</div>
 		</div>
 	</div>
 </body>
+<script>
+	$("#registerLinkButton").click(function() {
+		$(location).attr('href', '/uims/register');
+	});
+</script>
 </html>

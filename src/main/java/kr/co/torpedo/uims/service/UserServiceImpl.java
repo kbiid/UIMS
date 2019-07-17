@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<User> listCriteria(Criteria cri) {
-		Pageable pageable = PageRequest.of(cri.getPage(), cri.getPerPageNum(),Sort.Direction.DESC, "date");
+		Pageable pageable = PageRequest.of(cri.getPage()-1, cri.getPerPageNum(),Sort.Direction.DESC, "date");
 		Page<User> userList = repository.findAll(pageable);
 		return userList.getContent();
 	}

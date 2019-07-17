@@ -91,17 +91,18 @@
 			</div>
 			<div class="card-footer">
 				<button class="btn btn-sm btn-primary" type="button"
-					onclick="update();">
+					id="updateButton">
 					<i class="fa fa-dot-circle-o"></i> 수정
 				</button>
 				<a th:href="@{/detail(id=*{id})}" class="btn btn-sm btn-primary"><i
 					class="fa fa-dot-circle-o"></i> 취소</a>
 			</div>
+			<div id="errorText" style="color: red; font-size: 160%"></div>
 		</div>
 	</div>
 </body>
-<script type="text/javascript">
-	function update() {
+<script>
+	$("#updateButton").click(function update() {
 		if (!checkInput()) {
 			return false;
 		}
@@ -124,17 +125,16 @@
 			data : JSON.stringify(data),
 			async : false,
 			success : function(res) {
-				alert("수정성공!");
 				$(location).attr(
 						'href',
 						'/uims/detail?id='
 								+ document.getElementById("id").textContent);
 			},
 			error : function(request, status, error) {
-				alert("수정실패");
+				$("#errorText").text("수정실패!");
 			}
 		});
-	}
+	});
 
 	function checkInput() {
 		if ($("#firstName").val() == "") {

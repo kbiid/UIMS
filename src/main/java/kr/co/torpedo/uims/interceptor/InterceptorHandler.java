@@ -18,9 +18,10 @@ public class InterceptorHandler extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
+		logger.info("check session");
 		HttpSession session = request.getSession();
 		if (session.getAttribute("Admin") == null) {
-			response.sendRedirect("/");
+			response.sendRedirect("/uims");
 			logger.info("session not exist");
 			return false;
 		}

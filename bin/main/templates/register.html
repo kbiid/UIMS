@@ -14,8 +14,8 @@
 		<div class="navbar-brand col-sm-2 col-md-1">Welcome!!</div>
 		<div class="navbar-brand col-sm-2 col-md-1" id="navbarCollapse">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active"><a class="nav-link"
-					th:href="list">메인 </a></li>
+				<li class="nav-item active"><a class="nav-link" th:href="list">메인
+				</a></li>
 			</ul>
 		</div>
 		<div class="navbar-brand col-sm-3 col-md-1" id="navbarCollapse">
@@ -85,14 +85,15 @@
 								<div class="col-6">
 									<button type="button" class="btn btn-lg btn-primary btn-block"
 										style="width: 100px; height: 40px; text-align: center; font-size: 20px;"
-										onclick="register();">추가</button>
+										id="registerButton">추가</button>
 								</div>
 								<div class="col-6">
 									<button type="button" class="btn btn-lg btn-primary btn-block"
 										style="width: 100px; height: 40px; text-align: center; font-size: 20px; float: right;"
-										onclick="location.href='/uims/list'">취소</button>
+										id="backMainButton">취소</button>
 								</div>
 							</div>
+							<div id="errorText" style="color: red; font-size: 160%"></div>
 						</div>
 					</div>
 				</div>
@@ -100,8 +101,8 @@
 		</div>
 	</form>
 </body>
-<script type="text/javascript">
-	function register() {
+<script>
+	$("#registerButton").click(function() {
 		if (!checkInput()) {
 			return false;
 		}
@@ -122,33 +123,36 @@
 			data : JSON.stringify(data),
 			async : false,
 			success : function(res) {
-				alert("등록성공!");
 				$(location).attr('href', '/uims/list');
 			},
 			error : function(request, status, error) {
-				alert("code : " + request.status+"\n" + "message : " + request.responseText + "\n" + "error : " + error);
+				$("#errorText").text("error : " + request.responseText);
 			}
 		});
-	}
+	});
+
+	$("#backMainButton").click(function() {
+		$(location).attr('href', '/uims/');
+	});
 
 	function checkInput() {
 		if ($("#inputFirstName").val() == "") {
-			alert("이름을 입력하세요!")
+			$("#errorText").text("이름을 입력하세요!");
 			return false;
 		} else if ($("#inputLastName").val() == "") {
-			alert("성을 입력하세요!")
+			$("#errorText").text("성을 입력하세요!");
 			return false;
 		} else if ($("#inputEmail").val() == "") {
-			alert("email 입력하세요!")
+			$("#errorText").text("email을 입력하세요!");
 			return false;
 		} else if ($("#inputGender").val() == "") {
-			alert("성별을 입력하세요!")
+			$("#errorText").text("성별을 입력하세요!");
 			return false;
 		} else if ($("#inputIP").val() == "") {
-			alert("IP 주소를 입력하세요!")
+			$("#errorText").text("IP 주소를 입력하세요!");
 			return false;
 		} else if (!isEmail($("#inputEmail").val())) {
-			alert("이메일 형식을 올바르게 입력해주세요!");
+			$("#errorText").text("이메일 형식을 올바르게 입력해주세요!");
 			return false;
 		}
 		return true;

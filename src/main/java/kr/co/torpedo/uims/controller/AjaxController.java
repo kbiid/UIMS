@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
@@ -45,6 +46,9 @@ public class AjaxController {
 		String inputId = req.getParameter("id");
 		String inputPasswd = req.getParameter("passwd");
 		if (checkAdminInfo(inputId, inputPasswd)) {
+			logger.info("success login");
+			HttpSession session = req.getSession(true);
+			session.setAttribute("Admin", id);
 			return "success";
 		} else {
 			return "fail";

@@ -15,7 +15,7 @@ public class WebMVCConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(interceptor).addPathPatterns("/uims/**").excludePathPatterns("/login")
-				.excludePathPatterns("/uims");
+		registry.addInterceptor(interceptor).addPathPatterns("/**").excludePathPatterns("/checkLogin")
+				.excludePathPatterns("/");
 	}
 }

@@ -36,7 +36,7 @@
 										id="loginButton">로그인</button>
 								</div>
 							</div>
-							<div id="errorText" style="color:red; font-size:160%"></div>
+							<div id="errorText" style="color: red; font-size: 160%"></div>
 						</div>
 					</div>
 				</div>
@@ -46,39 +46,37 @@
 </body>
 <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
-	$(document).ready(function(){
-		$("#loginButton").click(function(){
-			if($("#inputId").val() == "") {
-				$("#errorText").text("아이디를 입력하세요!");
-				return false;
-			} else if ($("#inputPasswd").val() == "") {
-				$("#errorText").text("비밀번호를 입력하세요!");
-				return false;
-			} else {
-				var formDate= {
-						id : $("#inputId").val(),
-						passwd : $("#inputPasswd").val()
-				};
-				
-				$.ajax({
-					url : '/uims/checkLogin',
-					type : 'POST',
-					dataType : 'html',
-					data : formDate,
-					success : function(res) {
-						if(res == 'success') {
-							$(location).attr('href', '/uims/list');
-						} else {
-							$("#errorText").text("아이디나 비밀번호가 틀렸습니다!");
-							return false;
-						}
-					},
-					error : function(request, status, error) {
-						$("#errorText").text("error : " + request.responseText);
+	$("#loginButton").click(function() {
+		if ($("#inputId").val() == "") {
+			$("#errorText").text("아이디를 입력하세요!");
+			return false;
+		} else if ($("#inputPasswd").val() == "") {
+			$("#errorText").text("비밀번호를 입력하세요!");
+			return false;
+		} else {
+			var formDate = {
+				id : $("#inputId").val(),
+				passwd : $("#inputPasswd").val()
+			};
+
+			$.ajax({
+				url : '/uims/checkLogin',
+				type : 'POST',
+				dataType : 'html',
+				data : formDate,
+				success : function(res) {
+					if (res == 'success') {
+						$(location).attr('href', '/uims/list');
+					} else {
+						$("#errorText").text("아이디나 비밀번호가 틀렸습니다!");
+						return false;
 					}
-				});
-			}
-		});
+				},
+				error : function(request, status, error) {
+					$("#errorText").text("error : " + request.responseText);
+				}
+			});
+		}
 	});
 </script>
 </html>
