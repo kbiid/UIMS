@@ -2,7 +2,6 @@ package kr.co.torpedo.uims.controller;
 
 import java.security.NoSuchAlgorithmException;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -17,16 +16,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import kr.co.torpedo.uims.domain.Admin;
 
 @Controller
-public class LoginController {
-	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
+public class HomeController {
+	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	
 	@Autowired
 	private Admin admin;
-
-	// 초기화를 위한 작업
-	@PostConstruct
-	public void init() {
-		logger.info("controller init");
-	}
 
 	@RequestMapping("/")
 	public String home(HttpServletRequest httpServletRequest) {

@@ -20,7 +20,7 @@ public class InterceptorHandler extends HandlerInterceptorAdapter {
 			throws Exception {
 		HttpSession session = request.getSession();
 		if (session.getAttribute("Admin") == null) {
-			response.sendRedirect("/kkj");
+			response.sendRedirect("/");
 			logger.info("session not exist");
 			return false;
 		}

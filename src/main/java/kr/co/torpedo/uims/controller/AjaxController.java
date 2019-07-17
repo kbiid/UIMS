@@ -1,6 +1,7 @@
 package kr.co.torpedo.uims.controller;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -9,9 +10,11 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,8 +30,33 @@ import kr.co.torpedo.uims.service.UserService;
 public class AjaxController {
 	private static final Logger logger = LoggerFactory.getLogger(AjaxController.class);
 
+	@Value("${admin.id}")
+	private String id;
+	@Value("${admin.passwd}")
+	private String passwd;
+
 	@Autowired
 	private UserService userService;
+
+	@ResponseBody
+	@RequestMapping(value = "/checkLogin", method = RequestMethod.POST)
+	public String checkLogin(HttpServletRequest req, HttpServletResponse rep) throws NoSuchAlgorithmException {
+		logger.info("checkLogin");
+		String inputId = req.getParameter("id");
+		String inputPasswd = req.getParameter("passwd");
+		if (checkAdminInfo(inputId, inputPasswd)) {
+			return "success";
+		} else {
+			return "fail";
+		}
+	}
+
+	private boolean checkAdminInfo(String id, String passwd) throws NoSuchAlgorithmException {
+		if (!this.id.equals(id) || !BCrypt.checkpw(passwd, this.passwd)) {
+			return false;
+		}
+		return true;
+	}
 
 	@RequestMapping(value = "/selectAllUser", method = RequestMethod.POST)
 	public void getListByAjax(HttpServletRequest req, HttpServletResponse rep) throws IOException {
