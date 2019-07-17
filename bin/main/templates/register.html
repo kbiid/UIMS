@@ -117,13 +117,13 @@
 
 		$.ajax({
 			contentType : 'application/json',
-			url : '/uims/addUser',
+			url : '/addUser',
 			type : 'POST',
 			dataType : 'html',
 			data : JSON.stringify(data),
 			async : false,
 			success : function(res) {
-				$(location).attr('href', '/uims/list');
+				$(location).attr('href', '/list');
 			},
 			error : function(request, status, error) {
 				$("#errorText").text("error : " + request.responseText);
@@ -132,7 +132,7 @@
 	});
 
 	$("#backMainButton").click(function() {
-		$(location).attr('href', '/uims/list');
+		$(location).attr('href', '/list');
 	});
 
 	function checkInput() {

@@ -102,12 +102,12 @@
 
 			$.ajax({
 				contentType : 'application/json',
-				url : "/uims/delete",
+				url : "/delete",
 				type : "POST",
 				dataType : 'html',
 				data : JSON.stringify(data),
 				success : function(res) {
-					$(location).attr('href', '/uims/list');
+					$(location).attr('href', '/list');
 				},
 				error : function(request, status, error) {
 					$("#errorText").text("삭제실패!");
@@ -117,7 +117,7 @@
 	});
 
 	$("#backMainButton").click(function() {
-		$(location).attr('href', '/uims/list');
+		$(location).attr('href', '/list');
 	});
 </script>
 </html>
