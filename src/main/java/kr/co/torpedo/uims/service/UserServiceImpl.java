@@ -15,7 +15,6 @@ import kr.co.torpedo.uims.repository.UserRepository;
 
 @Service
 public class UserServiceImpl implements UserService {
-
 	@Autowired
 	UserRepository repository;
 
@@ -26,7 +25,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<User> listCriteria(Criteria cri) {
-		Pageable pageable = PageRequest.of(cri.getPage()-1, cri.getPerPageNum(),Sort.Direction.DESC, "date");
+		Pageable pageable = PageRequest.of(cri.getPage() - 1, cri.getPerPageNum(), Sort.Direction.DESC, "date");
 		Page<User> userList = repository.findAll(pageable);
 		return userList.getContent();
 	}
@@ -55,5 +54,4 @@ public class UserServiceImpl implements UserService {
 	public void delete(int id) {
 		repository.deleteById(id);
 	}
-
 }

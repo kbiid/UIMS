@@ -10,9 +10,4 @@ public class UimsApplication{
 	public static void main(String[] args) {
 		SpringApplication.run(UimsApplication.class, args);
 	}
-
-//	@Override
-//	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-//		return application.sources(UimsApplication.class);
-//	}
 }

@@ -1,7 +1,5 @@
 package kr.co.torpedo.uims.controller;
 
-import java.security.NoSuchAlgorithmException;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -31,7 +29,7 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/logout")
-	public String logout(HttpServletRequest httpServletRequest, Model model) throws NoSuchAlgorithmException {
+	public String logout(HttpServletRequest httpServletRequest, Model model){
 		logger.info("logout");
 		checkSession(httpServletRequest);
 		return "redirect:/";
