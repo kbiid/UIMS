@@ -16,8 +16,14 @@ public class HomeController {
 	@RequestMapping("/")
 	public String home(HttpServletRequest httpServletRequest) {
 		logger.info("home method");
-		checkSession(httpServletRequest);
 		return "login";
+	}
+
+	@RequestMapping(value = "/logout")
+	public String logout(HttpServletRequest httpServletRequest, Model model) {
+		logger.info("logout");
+		checkSession(httpServletRequest);
+		return "redirect:/";
 	}
 
 	private void checkSession(HttpServletRequest httpServletRequest) {
@@ -26,12 +32,5 @@ public class HomeController {
 			logger.info("remove session");
 			session.invalidate();
 		}
-	}
-
-	@RequestMapping(value = "/logout")
-	public String logout(HttpServletRequest httpServletRequest, Model model){
-		logger.info("logout");
-		checkSession(httpServletRequest);
-		return "redirect:/";
 	}
 }

@@ -21,7 +21,7 @@ public class InterceptorHandler extends HandlerInterceptorAdapter {
 		logger.info("check session");
 		HttpSession session = request.getSession();
 		if (session.getAttribute("Admin") == null) {
-			response.sendRedirect("/uims");
+			response.sendRedirect("/");
 			logger.info("session not exist");
 			return false;
 		}
