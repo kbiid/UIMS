@@ -35,12 +35,6 @@
 		</rollingPolicy>
 	</appender>
 
-	<logger name="com.apress.spring" level="DEBUG">
-		<appender-ref ref="SAMPLE" />
-	</logger>
-	<logger name="com.apress.spring.jeongpro" level="INFO">
-		<appender-ref ref="ROLLING" />
-	</logger>
 	<root level="INFO">
 		<appender-ref ref="ROLLING" />
 	</root>
